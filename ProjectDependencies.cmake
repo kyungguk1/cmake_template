@@ -1,3 +1,5 @@
+# To update CPM, execute the following in the project directory:
+# wget -O cmake/CPM.cmake https://github.com/cpm-cmake/CPM.cmake/releases/latest/download/get_cpm.cmake
 include(cmake/CPM.cmake)
 
 # Done as a function so that updates to variables like
