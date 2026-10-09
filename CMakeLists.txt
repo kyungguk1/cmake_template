@@ -26,14 +26,13 @@ project(
   LANGUAGES CXX C)
 
 include(cmake/PreventInSourceBuilds.cmake)
-include(cmake/Emscripten.cmake)
 include(ProjectOptions.cmake)
 
 
 myproject_setup_options()
 
 myproject_global_options()
-include(Dependencies.cmake)
+include(ProjectDependencies.cmake)
 myproject_setup_dependencies()
 
 myproject_local_options()
@@ -58,16 +57,8 @@ add_library(myproject::myproject_warnings ALIAS myproject_warnings)
 #add_library(myproject::myproject_options INTERFACE IMPORTED)
 #add_library(myproject::myproject_warnings INTERFACE IMPORTED)
 
-# configure files based on CMake configuration options
-add_subdirectory(configured_files)
-
 # Adding the src:
 add_subdirectory(src)
-
-# Create unified web deployment directory (for WASM builds)
-if(EMSCRIPTEN)
-  myproject_create_web_dist()
-endif()
 
 # Don't even look at tests if we're not top level
 if(NOT PROJECT_IS_TOP_LEVEL)
@@ -109,6 +100,7 @@ endif()
 
 include(cmake/PackageProject.cmake)
 
+if (false)
 # Add other targets that you want installed here, by default we just package the one executable
 # we know we want to ship
 myproject_package_project(
@@ -128,3 +120,4 @@ set(CPACK_PACKAGE_FILE_NAME
 )
 
 include(CPack)
+endif ()

@@ -8,10 +8,7 @@ include(CheckCXXSourceCompiles)
 
 macro(myproject_supports_sanitizers)
   # Emscripten doesn't support sanitizers
-  if(EMSCRIPTEN)
-    set(SUPPORTS_UBSAN OFF)
-    set(SUPPORTS_ASAN OFF)
-  elseif((CMAKE_CXX_COMPILER_ID MATCHES ".*Clang.*" OR CMAKE_CXX_COMPILER_ID MATCHES ".*GNU.*") AND NOT WIN32)
+  if((CMAKE_CXX_COMPILER_ID MATCHES ".*Clang.*" OR CMAKE_CXX_COMPILER_ID MATCHES ".*GNU.*") AND NOT WIN32)
 
     message(STATUS "Sanity checking UndefinedBehaviorSanitizer, it should be supported on this platform")
     set(TEST_PROGRAM "int main() { return 0; }")
@@ -169,16 +166,14 @@ macro(myproject_local_options)
   include(cmake/Linker.cmake)
   # Must configure each target with linker options, we're avoiding setting it globally for now
 
-  if(NOT EMSCRIPTEN)
-    include(cmake/Sanitizers.cmake)
-    myproject_enable_sanitizers(
-      myproject_options
-      ${myproject_ENABLE_SANITIZER_ADDRESS}
-      ${myproject_ENABLE_SANITIZER_LEAK}
-      ${myproject_ENABLE_SANITIZER_UNDEFINED}
-      ${myproject_ENABLE_SANITIZER_THREAD}
-      ${myproject_ENABLE_SANITIZER_MEMORY})
-  endif()
+  include(cmake/Sanitizers.cmake)
+  myproject_enable_sanitizers(
+    myproject_options
+    ${myproject_ENABLE_SANITIZER_ADDRESS}
+    ${myproject_ENABLE_SANITIZER_LEAK}
+    ${myproject_ENABLE_SANITIZER_UNDEFINED}
+    ${myproject_ENABLE_SANITIZER_THREAD}
+    ${myproject_ENABLE_SANITIZER_MEMORY})
 
   set_target_properties(myproject_options PROPERTIES UNITY_BUILD ${myproject_ENABLE_UNITY_BUILD})
 

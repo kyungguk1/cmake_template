@@ -15,7 +15,7 @@ below explains *why*, so you can keep it, swap it, or turn it off.
 | --- | --- |
 | `CMakeLists.txt` | Top-level wiring. |
 | `ProjectOptions.cmake` | All `myproject_*` options and setup macros. |
-| `Dependencies.cmake` | CPM package fetch, gated by `if(NOT TARGET ...)`. |
+| `ProjectDependencies.cmake` | CPM package fetch, gated by `if(NOT TARGET ...)`. |
 | `cmake/*.cmake` | One concern per file (warnings, sanitizers, hardening, ...). |
 
 `PROJECT_IS_TOP_LEVEL` flips defaults: strict when you own the build, quiet
